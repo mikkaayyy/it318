@@ -37,7 +37,7 @@
                                 data-callback="onSignIn">
                             </div>
                             <div class="g_id_signin form-control" data-type="standard"></div>
-                                <form  id = "loginForm" method = "post" role="form" class="text-start">
+                                <form  id = "loginForm">
                                     @csrf
                                     <div class="input-group input-group-outline my-3">
                                         <label class="form-label">Email</label>
@@ -58,7 +58,7 @@
                                     <div id="error" style="color: red;"></div>
                                     <p class="mt-4 text-sm text-center">
                                                                 Don't have an account?
-                                 <a href="{{ route('static-sign-up') }}" class="text-primary text-gradient font-weight-bold">Sign Up</a>
+                                 <a href="{{ route('sign-up') }}" class="text-primary text-gradient font-weight-bold">Sign Up</a>
                                      </p>
 
                                     <!-- <p id="error_message"></p> -->

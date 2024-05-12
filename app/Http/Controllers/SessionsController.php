@@ -40,7 +40,7 @@ class SessionsController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
-
+        // dd(hash::make($attributes['password']));
         $this -> checkTooManyFailedAttempts();
 
         if (!Auth::attempt($attributes)) {

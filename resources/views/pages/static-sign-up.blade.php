@@ -1,4 +1,4 @@
-<!-- <x-layout bodyClass="">
+<x-layout bodyClass="">
     <div>
         <div class="container position-sticky z-index-sticky top-0">
             <div class="row">
@@ -6,7 +6,7 @@
                     <!-- Navbar -->
                     <x-navbars.navs.guest signin='static-sign-in' signup='static-sign-up'></x-navbars.navs.guest>
                     <!-- End Navbar -->
-                <!-- </div>
+                </div>
             </div>
         </div>
         <main class="main-content  mt-0">
@@ -28,17 +28,18 @@
                                         <h4 class="font-weight-bolder">Sign Up</h4>
                                         <p class="mb-1"></p>
                                     </div>
-                                    <div class="card-body"> -->
-                                        <!-- <form> -->
-                                        <!-- <div class="input-group input-group-outline mb-3">
+                                    <div class="card-body">
+                                        <form id="signupForm">
+                                        @csrf
+                                        <div class="input-group input-group-outline mb-3 d-none">
                                                 <label class="form-label">User Role</label>
-                                                <select class="form-select" name="role" required>
+                                                <select class="form-select d-none" name="role" required>
                                                     <option value=""></option>
                                                     <option value="admin">Admin</option>
-                                                    <option value="client">Client</option>
+                                                    <option value="user" selected>Client</option>
                                                 </select>
-                                            </div> -->
-                                            <!-- <div class="input-group input-group-outline mb-3">
+                                            </div>
+                                            <div class="input-group input-group-outline mb-3">
                                                 <label class="form-label">Name</label>
                                                 <input type="text" class="form-control" name="name" required>
                                             </div>
@@ -52,17 +53,17 @@
                                                 @error('password')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
-                                            </div> -->
-                                            <!-- <div class="input-group input-group-outline mb-3">
+                                            </div>
+                                            <div class="input-group input-group-outline mb-3">
                                                 <label class="form-label">Phone Number</label>
                                                 <input type="text" class="form-control" name="phone" required>
-                                            </div> -->
-                                            <!-- <div class="input-group input-group-outline mb-3">
+                                            </div>
+                                            {{-- <div class="input-group input-group-outline mb-3">
                                             <label class="form-label">Appointment</label>
                                              <input type="text" class="form-control" id="datetimepicker" name="dob" required>
-                                              </div> -->
+                                              </div> --}}
 
-                                            <!-- <div class="form-check form-check-info text-start ps-0">
+                                            <div class="form-check form-check-info text-start ps-0">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                     id="flexCheckDefault" checked>
                                                 <label class="form-check-label" for="flexCheckDefault">
@@ -70,8 +71,9 @@
                                                         class="text-dark font-weight-bolder">Terms and Conditions</a>
                                                 </label>
                                             </div>
+                                            <div id="error" style="color: red;"></div>
                                             <div class="text-center">
-                                                <button type="submit"
+                                                <button type="button" id="sing-upbtn"
                                                     class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign
                                                     Up</button>
                                             </div>
@@ -92,10 +94,12 @@
             </section>
         </main>
     </div>
-</x-layout> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+</x-layout>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.en.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         $('#datetimepicker').datepicker({
@@ -103,5 +107,25 @@
             autoclose: true,
             todayHighlight: true
         });
-    }); -->
-</script> -->
+    });
+    
+    $('#sing-upbtn').on('click', function(e) {
+        $.ajax({
+            method: 'post',
+            url: 'store-sign-up',
+            data: $('#signupForm').serialize(),
+            dataType: 'json',
+            success: function(response) {
+                if (response.status_code == 0) {
+                    window.location.href = "{{route('dashboard')}}";
+                } else {
+                    $('#error').html('<div>' + response.msg + '</div>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error); 
+                $("#error").html(xhr.responseJSON.message);
+            }
+        });
+    });
+</script>

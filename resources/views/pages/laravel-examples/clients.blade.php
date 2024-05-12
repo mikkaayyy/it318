@@ -16,6 +16,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Type</th>
                                             <!-- Add more columns as needed -->
                                         </tr>
                                     </thead>
@@ -27,6 +28,7 @@
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>{{ $user->role }}</td>
                                             <!-- Add more columns as needed -->
                                         </tr>
                                         @endforeach

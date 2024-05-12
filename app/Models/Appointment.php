@@ -8,6 +8,10 @@ use App\Http\Controllers\AppointmentController;
 
 class Appointment extends Model
 {
-    protected $fillable = ['client_name', 'appointment_time', 'service_type', 'price'];
+    protected $fillable = [
+        'userId',
+        'schedule',
+        'description',
+        'price',
+    ];
 }
-?>
