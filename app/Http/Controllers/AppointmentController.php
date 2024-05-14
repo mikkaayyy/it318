@@ -37,6 +37,7 @@ class AppointmentController extends Controller
         $validatedData = request()->validate([
             'schedule' => 'required|date_format:Y-m-d\TH:i',
             'description' => 'required|string',
+
         ]);
         $validatedData['userId'] = auth()->id();
 
@@ -44,4 +45,43 @@ class AppointmentController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    public function approve_appointment($appointmentId)
+    {
+        
+        $appointment = Appointment::find($appointmentId);
+        dd($appointmentId);
+        
+
+        if ($appointment) {
+            $appointment->status = 'Approved';
+            $appointment->save();
+            return response()->json(['success' => true, 'message' => 'Appointment approved successfully']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Appointment not found'], 404);
+          
+        }
+    }
+    
+    
+
+    
+
+
+    public function reject_appointment($userId)
+    {
+        $appointment = Appointment::find($userId);
+        
+        if ($appointment) {
+            $appointment->status = 'Rejected';
+            $appointment->save();
+            return response()->json(['success' => true, 'message' => 'Appointment rejected successfully']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Appointment not found'], 404);
+        }
+    }
+    
+    
+
+
 }

@@ -31,9 +31,9 @@
                                     <div class="card-body">
                                         <form id="signupForm">
                                         @csrf
-                                        <div class="input-group input-group-outline mb-3 d-none">
+                                        <div class="input-group input-group-outline mb-3 ">
                                                 <label class="form-label">User Role</label>
-                                                <select class="form-select d-none" name="role" required>
+                                                <select class="form-select " name="role" required>
                                                     <option value=""></option>
                                                     <option value="admin">Admin</option>
                                                     <option value="user" selected>Client</option>

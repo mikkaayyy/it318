@@ -36,6 +36,8 @@ use App\Http\Controllers\login;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppointmentController;
 use App\Models\Appointment;
+
+
             
 Route::get('/login', [login::class, 'viewlogin']);
 Route::post('google/login', [SessionsController::class, 'verify_login_email'])->name('google.authorization');
@@ -58,8 +60,9 @@ Route::get('/appointments', [AppointmentController::class, 'index'])->middleware
 Route::get('/appointments/admin', [AppointmentController::class, 'admin'])->middleware('auth')->name('appointments.admin');
 // Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
 Route::post('appointments/create', [AppointmentController::class, 'store'])->middleware('auth')->name('appointments-store');
-
-
+Route::post('/approve_appointment/{appointmentId}', [AppointmentController::class, 'approve_appointment']);
+Route::post('/reject_appointment/{usersId}', [AppointmentController::class, 'reject_appointment']);
+Route::post('appointments/approve',[AppointmentController::class, ]);
 
 
 

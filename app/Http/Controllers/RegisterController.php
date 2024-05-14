@@ -22,7 +22,7 @@ class RegisterController extends Controller
             'password' => [
                 'required',
                 'min:5',
-                // 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
+                //  'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
             ],
             'role' => 'required|in:user,admin',
             'phone' => 'required|max:12'
@@ -31,14 +31,14 @@ class RegisterController extends Controller
             'agreement.accepted' => 'You must agree to the Terms and Conditions.',
         ]);
 
-        $hashedpassword = Hash::make($attributes['password']);
+        // $hashedpassword = Hash::make($attributes['password']);
         // Log::info('hashedpass', (array)$hashedpassword);
         // dd($hashedpassword);
         $user = User::create([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'password' => $attributes['password'],
-            // 'role' => $attributes['role'],
+            'role' => $attributes['role'],
             'phone' => $attributes['phone'],
         ]);
 

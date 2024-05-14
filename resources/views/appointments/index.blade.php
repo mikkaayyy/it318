@@ -20,6 +20,8 @@
                     <th>Appointment Time</th>
                     <th>Service Type</th>
                     <th>Price</th>
+                    <th>Status </th>
+                    <th>Action </th>
                 </tr>
             </thead>
             <tbody>
@@ -29,8 +31,14 @@
                         <td>{{ $appointment->name }}</td>
                         <td>{{ $appointment->schedule }}</td>
                         <td>{{ $appointment->description }}</td>
-                        <td>{{ $appointment->status = ($appointment->status == 0) ? 'Pending' : 'Approved' }}</td>
-                        <!-- Add more columns as needed -->
+                        <td>
+                         @if($appointment->status == 'Pending')
+                       <button class="btn btn-success approve-btn" data-appointment-id="{{ $appointment->id }}">Approve</button>
+                         @else
+                        <span>{{ $appointment->status }}</span>
+                         @endif
+                           </td>
+                        
                     </tr>
                 @endforeach
             </tbody>
@@ -38,21 +46,30 @@
     </main>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">New Appointment</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="createAppointment">
                     @csrf
                     <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Service Type:</label>
-                        <textarea class="form-control" id="description" name="description"></textarea>
+                        <label for="service" class="col-form-label">Service Type:</label>
+                        <select class="form-select" id="service" name="service">
+                            <option value="Haircut">Haircut</option>
+                            <option value="Hair Coloring">Hair Coloring</option>
+                            <option value="Hair Styling">Hair Styling</option>
+                            <!-- Add more options as needed -->
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Date:</label>
+                        <label for="price" class="col-form-label">Price:</label>
+                        <input type="number" class="form-control" id="price" name="price">
+                    </div>
+                    <div class="mb-3">
+                        <label for="schedule" class="col-form-label">Date:</label>
                         <input type="datetime-local" class="form-control" id="schedule" name="schedule">
                     </div>
                 </form>
@@ -61,10 +78,10 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="reqApp">Request</button>
             </div>
-            </div>
         </div>
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
@@ -87,5 +104,7 @@
         });
     });
 </script>
+
+
 </x-layout>
 
