@@ -20,7 +20,8 @@ class AppointmentController extends Controller
     
     public function admin()
     {
-        $appointments = Appointment::leftJoin('users', 'users.id', '=', 'appointments.userId') 
+        $appointments = Appointment::leftJoin('users as s', 's.id', '=', 'appointments.userId')
+                                    ->select('s.*', 'appointments.id as appointmentID', 'appointments.*' )
                                     ->get();
         $activePage = 'allappointment';
         return view('appointments.indexadmin', compact('appointments', 'activePage'));
@@ -48,13 +49,13 @@ class AppointmentController extends Controller
 
     public function approve_appointment($appointmentId)
     {
-        
+        $appointmentId = intval($appointmentId);
         $appointment = Appointment::find($appointmentId);
-        dd($appointmentId);
+        // dd($appointment);
         
 
         if ($appointment) {
-            $appointment->status = 'Approved';
+            $appointment->status = 1;
             $appointment->save();
             return response()->json(['success' => true, 'message' => 'Appointment approved successfully']);
         } else {

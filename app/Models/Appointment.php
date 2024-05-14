@@ -13,5 +13,6 @@ class Appointment extends Model
         'schedule',
         'description',
         'price',
+        'status',
     ];
 }

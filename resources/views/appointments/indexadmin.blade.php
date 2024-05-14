@@ -49,10 +49,10 @@
                         <td>{{ $appointment->schedule }}</td>
                         <td>{{ $appointment->description }}</td>
                         <td>{{ $appointment->status}}</td>
-                        <td>{{ $appointment->status_update }}</td>
+                        <td>{{ $appointment->status == 1 ? 'Approved' : ($appointment->status == 2 ? 'Rejected' : 'Pending') }}</td>
                          <td>
                          <span style="padding-bottom: 10px;">
-                         <button class="btn btn-success approve-btn" data-appointment-id="{{ $appointment->id }}">Approve</button>
+                         <button class="btn btn-success approve-btn" data-appointment-id="{{ $appointment->appointmentID }}">Approve</button>
                        </span>
                        <a class="btn btn-danger reject-btn" data-appointment-id="{{ $appointment->id }}" href="#">Reject</a>
                       </td>
