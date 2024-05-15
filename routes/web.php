@@ -36,6 +36,9 @@ use App\Http\Controllers\login;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppointmentController;
 use App\Models\Appointment;
+use App\Http\Controllers\Auth\OTPController;
+
+
 
 
             
@@ -61,9 +64,13 @@ Route::get('/appointments/admin', [AppointmentController::class, 'admin'])->midd
 // Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
 Route::post('appointments/create', [AppointmentController::class, 'store'])->middleware('auth')->name('appointments-store');
 Route::post('/approve_appointment/{appointmentId}', [AppointmentController::class, 'approve_appointment']);
-Route::post('/reject_appointment/{usersId}', [AppointmentController::class, 'reject_appointment']);
+Route::post('/reject_appointment/{appointmentId}', [AppointmentController::class, 'reject_appointment']);
 Route::post('appointments/approve',[AppointmentController::class, ]);
 
+Route::post('/send-otp', [OTPController::class, 'generateOTP']);
+Route::post('/verify-otp', [OTPController::class, 'verifyOTP']);
+Route::get('/register', [RegisterController::class, 'create']);
+Route::post('/register', [RegisterController::class, 'store']);
 
 
 

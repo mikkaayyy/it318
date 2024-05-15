@@ -21,12 +21,12 @@
                                 </div>
                             </div>
                             <div
-                                class="col-xl-5 col-lg-10 col-md-20 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-50">
+                                class="col-xl-5 col-lg-2 col-md-10 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-50">
                                 <div class="card card-plain">
                                 <div class="container">
                                     <div class="card-header">
                                         <h4 class="font-weight-bolder">Sign Up</h4>
-                                        <p class="mb-1"></p>
+                                        <p class="mb-0"></p>
                                     </div>
                                     <div class="card-body">
                                         <form id="signupForm">
@@ -40,7 +40,11 @@
                                                 </select>
                                             </div>
                                             <div class="input-group input-group-outline mb-3">
-                                                <label class="form-label">Name</label>
+                                                <label class="form-label">FirstName</label>
+                                                <input type="text" class="form-control" name="name" required>
+                                            </div>
+                                            <div class="input-group input-group-outline mb-3">
+                                                <label class="form-label">Lastname</label>
                                                 <input type="text" class="form-control" name="name" required>
                                             </div>
                                             <div class="input-group input-group-outline mb-3">
@@ -63,18 +67,26 @@
                                              <input type="text" class="form-control" id="datetimepicker" name="dob" required>
                                               </div> --}}
 
-                                            <div class="form-check form-check-info text-start ps-0">
+                                              <div class="input-group input-group-outline mb-3">
+                                                    <label class="form-label">OTP</label>
+                                                    <input type="text" class="form-control" name="otp" id="otp" required>
+                                                </div>
+                                                <div class="text-center mb-3">
+                                                    <button type="button" id="send-otp" class="btn btn-secondary">Send OTP</button>
+                                                </div>
+
+                                            <!-- <div class="form-check form-check-info text-start ps-0">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                     id="flexCheckDefault" checked>
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     I agree the <a href="javascript:;"
                                                         class="text-dark font-weight-bolder">Terms and Conditions</a>
                                                 </label>
-                                            </div>
+                                            </div> -->
                                             <div id="error" style="color: red;"></div>
                                             <div class="text-center">
                                                 <button type="button" id="sing-upbtn"
-                                                    class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign
+                                                    class="btn btn-lg bg-gradient-success btn-lg w-100 mt-4 mb-0">Sign
                                                     Up</button>
                                             </div>
                                         </form>
@@ -120,7 +132,7 @@ crossorigin="anonymous"></script>
                     window.location.href = "{{route('dashboard')}}";
                 } else {
                     $('#error').html('<div>' + response.msg + '</div>');
-                }
+                } 
             },
             error: function(xhr, status, error) {
                 console.log(error); 
@@ -128,4 +140,56 @@ crossorigin="anonymous"></script>
             }
         });
     });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script >
+$(document).ready(function(){
+    sendOTP();
+});
+
+function sendOTP(){
+
+    $("#btn-Otp").on("click", function(e){
+
+        e.preventDefault();
+        $.ajax({
+            url: 'generate-otp',
+            method: 'post',
+            data: { 
+                email: $('#email').val(),
+                _token: $("#token").val()
+            },
+            dataType: 'json',
+            cache: false,
+
+            beforeSend:function(){
+                $("#btn-Otp").html("Sending...");
+                $("#btn-Otp").prop("disabled", true);
+            },
+
+            success:function(data){
+                $("#btn-Otp").html("SEND OTP");
+                $("#btn-Otp").prop("disabled", false);
+                if (data.message == 'success') {
+                    Swal.fire({
+                        title: "Information",
+                        text: "OTP was sent to entered email",
+                        icon: "success"
+                      });
+                } else {
+                    Swal.fire({
+                        title: "Information",
+                        text: "Failed to send OTP",
+                        icon: "info"
+                      });
+                }
+            },
+            error:function(xhr, status, error){
+                console.log(xhr.responseText);
+            }
+        });
+
+    });
+}
 </script>

@@ -11,7 +11,7 @@
                         <div class="card-header p-10">
            <div class="container mt-5 d-flex justify-content-center">
     <main>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> Create Appointment </button>
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"> Create Appointment </button>
         <h2>Appointments List</h2>
         <table class="table table-bordered table-striped">
             <thead>
@@ -33,12 +33,17 @@
                         <td>{{ $appointment->description }}</td>
                         <td>
                          @if($appointment->status == 'Pending')
-                       <button class="btn btn-success approve-btn" data-appointment-id="{{ $appointment->id }}">Approve</button>
+                       <!-- <button class="btn btn-success approve-btn" data-appointment-id="{{ $appointment->id }}">Approve</button> -->
                          @else
                         <span>{{ $appointment->status }}</span>
                          @endif
                            </td>
-                        
+                        <td>
+                        <td>
+                         <button 
+                       
+                      </td>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -61,6 +66,8 @@
                             <option value="Haircut">Haircut</option>
                             <option value="Hair Coloring">Hair Coloring</option>
                             <option value="Hair Styling">Hair Styling</option>
+                            <option value="Hair Styling">Hot Oil</option>
+                            <option value="Hair Styling">Brazilian Treatment</option>
                             <!-- Add more options as needed -->
                         </select>
                     </div>

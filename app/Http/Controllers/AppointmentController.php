@@ -52,11 +52,14 @@ class AppointmentController extends Controller
         $appointmentId = intval($appointmentId);
         $appointment = Appointment::find($appointmentId);
         // dd($appointment);
+        // $appointment = Appointment::where('userId', $appointment->userId)->first();
         
 
         if ($appointment) {
             $appointment->status = 1;
             $appointment->save();
+             
+
             return response()->json(['success' => true, 'message' => 'Appointment approved successfully']);
         } else {
             return response()->json(['success' => false, 'message' => 'Appointment not found'], 404);
@@ -65,24 +68,21 @@ class AppointmentController extends Controller
     }
     
     
-
-    
-
-
-    public function reject_appointment($userId)
+    public function reject_appointment($appointmentId)
     {
-        $appointment = Appointment::find($userId);
-        
+        $appointmentId = intval($appointmentId);
+        $appointment = Appointment::find($appointmentId);
+        // $appointment = Appointment::where('userId', $appointment->userId)->first();
         if ($appointment) {
-            $appointment->status = 'Rejected';
+            $appointment->status = 2;;
             $appointment->save();
+
+       
             return response()->json(['success' => true, 'message' => 'Appointment rejected successfully']);
         } else {
             return response()->json(['success' => false, 'message' => 'Appointment not found'], 404);
         }
     }
     
-    
+}  
 
-
-}

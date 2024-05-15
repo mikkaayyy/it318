@@ -22,28 +22,32 @@ class RegisterController extends Controller
             'password' => [
                 'required',
                 'min:5',
-                //  'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
             ],
             'role' => 'required|in:user,admin',
-            'phone' => 'required|max:12'
+            'phone' => 'required|max:12',
+            'otp' => 'required'
         ], [
             'password.regex' => 'The password must contain at least one uppercase letter, one lowercase letter, and one number.',
-            'agreement.accepted' => 'You must agree to the Terms and Conditions.',
         ]);
 
-        // $hashedpassword = Hash::make($attributes['password']);
-        // Log::info('hashedpass', (array)$hashedpassword);
-        // dd($hashedpassword);
+        $inputOTP = $attributes['otp'];
+        $sessionOTP = session('otp');
+
+        if ($inputOTP != $sessionOTP) {
+            return response()->json(['error' => 'Invalid OTP']);
+        }
+
         $user = User::create([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
-            'password' => $attributes['password'],
+            'password' => Hash::make($attributes['password']),
             'role' => $attributes['role'],
             'phone' => $attributes['phone'],
         ]);
 
-        
-        // return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
+        session()->forget('otp');
+
         return response()->json(['status_code' => 0]);
     }
 }

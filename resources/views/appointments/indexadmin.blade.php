@@ -21,6 +21,11 @@
                         width: 80%
                         }
                       </style>
+                      <style>
+        .swal2-actions .swal2-confirm {
+            margin-right: 10px; /* Adjust the space between buttons */
+        }
+    </style>
            <div class="container mt-5 d-flex justify-content-center">
            <meta name="csrf-token" content="{{ csrf_token() }}">
            <head>
@@ -38,7 +43,7 @@
                     <th>Service Type</th>
                     <th>Price</th>
                     <th>Status</th>
-                    <th>Status Update</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,13 +53,14 @@
                         <td>{{ $appointment->name }}</td>
                         <td>{{ $appointment->schedule }}</td>
                         <td>{{ $appointment->description }}</td>
-                        <td>{{ $appointment->status}}</td>
+                        <td></td> 
+                        <!-- <td>{{ $appointment->status}}</td> -->
                         <td>{{ $appointment->status == 1 ? 'Approved' : ($appointment->status == 2 ? 'Rejected' : 'Pending') }}</td>
                          <td>
                          <span style="padding-bottom: 10px;">
                          <button class="btn btn-success approve-btn" data-appointment-id="{{ $appointment->appointmentID }}">Approve</button>
                        </span>
-                       <a class="btn btn-danger reject-btn" data-appointment-id="{{ $appointment->id }}" href="#">Reject</a>
+                       <a class="btn btn-danger reject-btn" data-appointment-id="{{ $appointment->appointmentID }}" href="#">Reject</a>
                       </td>
 
 
@@ -165,30 +171,46 @@
 <script>
 $(document).on('click', '.reject-btn', function() {
     var appointmentId = $(this).data('appointment-id');
-    $.ajax({
-        method: 'POST',
-        url: '/reject_appointment/' + appointmentId,
-        dataType: 'json',
-        success: function(response) {
-            // Show success message with SweetAlert
-            Swal.fire({
-                title: 'Rejected!',
-                text: 'The appointment has been successfully rejected.',
-                icon: 'success',
-                confirmButtonText: 'OK',
-                confirmButtonClass: 'btn btn-success',
-                buttonsStyling: false
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Reload the page or update UI as needed
-                    window.location.reload();
+    
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you really want to reject this appointment?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, reject it!',
+        cancelButtonText: 'No, keep it',
+        customClass: {
+            confirmButton: 'custom-confirm-btn btn btn-danger',
+            cancelButton: 'custom-cancel-btn btn btn-secondary'
+        },
+        buttonsStyling: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                method: 'POST',
+                url: '/reject_appointment/' + appointmentId,
+                dataType: 'json',
+                success: function(response) {
+                    // Show success message with SweetAlert
+                    Swal.fire({
+                        title: 'Rejected!',
+                        text: 'The appointment has been successfully rejected.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Reload the page or update UI as needed
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
                 }
             });
-        },
-        error: function(xhr, status, error) {
-    console.error(xhr.responseText);
-}
-
+        }
     });
 });
 </script>
