@@ -14,15 +14,15 @@
                                 <i class="material-icons opacity-10">weekend</i>
                             </div>
                             <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                                <h4 class="mb-0">$53k</h4>
+                                <p class="text-sm mb-0 text-capitalize">Today's Revenue</p>
+                                <h4 class="mb-0">PHP {{ number_format($dailyRevenue,2) }}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
+                        {{-- <div class="card-footer p-3">
                             <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than
                                 lask week</p>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -33,15 +33,15 @@
                                 <i class="material-icons opacity-10">person</i>
                             </div>
                             <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                                <h4 class="mb-0">2,300</h4>
+                                <p class="text-sm mb-0 text-capitalize">Total Revenue</p>
+                                <h4 class="mb-0">PHP {{ number_format($overAllRevenue,2) }}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
+                        {{-- <div class="card-footer p-3">
                             <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than
                                 lask month</p>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -52,18 +52,18 @@
                                 <i class="material-icons opacity-10">person</i>
                             </div>
                             <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                                <h4 class="mb-0">3,462</h4>
+                                <p class="text-sm mb-0 text-capitalize">Total User</p>
+                                <h4 class="mb-0">{{ $totalUser }}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
-                        <div class="card-footer p-3">
+                        {{-- <div class="card-footer p-3">
                             <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than
                                 yesterday</p>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6">
+                {{-- <div class="col-xl-3 col-sm-6">
                     <div class="card">
                         <div class="card-header p-3 pt-2">
                             <div
@@ -81,9 +81,9 @@
                                 yesterday</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
-            <div class="row mt-4">
+            {{-- <div class="row mt-4">
                 <div class="col-lg-4 col-md-6 mt-4 mb-4">
                     <div class="card z-index-2 ">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
@@ -145,20 +145,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mb-4">
+            </div> --}}
+            <div class="row mb-4 mt-4">
                 <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
                     <div class="card">
                         <div class="card-header pb-0">
                             <div class="row">
                                 <div class="col-lg-6 col-7">
-                                    <h6>Projects</h6>
+                                    <h6>Services</h6>
                                     <p class="text-sm mb-0">
-                                        <i class="fa fa-check text-info" aria-hidden="true"></i>
-                                        <span class="font-weight-bold ms-1">30 done</span> this month
+                                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"> Add Services </button>
                                     </p>
                                 </div>
-                                <div class="col-lg-6 col-5 my-auto text-end">
+                                {{-- <div class="col-lg-6 col-5 my-auto text-end">
                                     <div class="dropdown float-lg-end pe-4">
                                         <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown"
                                             aria-expanded="false">
@@ -174,7 +173,7 @@
                                                     else here</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
@@ -184,33 +183,36 @@
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Companies</th>
+                                                Name</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Members</th>
+                                                Price</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Budget</th>
+                                                Status</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Completion</th>
+                                                Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                       @foreach ($services as $service)
+                                       <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
-                                                    <div>
+                                                    {{ $service->servicename }}
+                                                    {{-- <div>
                                                         <img src="{{ asset('assets') }}/img/small-logos/logo-xd.svg"
                                                             class="avatar avatar-sm me-3" alt="xd">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">Material XD Version</h6>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="avatar-group mt-2">
+                                                PHP {{ $service->serviceprice }}
+                                                {{-- <div class="avatar-group mt-2">
                                                     <a href="javascript:;" class="avatar avatar-xs rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         title="Ryan Tompson">
@@ -231,13 +233,16 @@
                                                         title="Jessica Doe">
                                                         <img src="{{ asset('assets') }}/img/team-4.jpg" alt="team4">
                                                     </a>
-                                                </div>
+                                                </div> --}}
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> $14,000 </span>
+                                                {{ $service->servicestatus == 1 ? 'Inactive' : 'Active' }}
                                             </td>
-                                            <td class="align-middle">
-                                                <div class="progress-wrapper w-75 mx-auto">
+                                            <td class="d-flex justify-content-center">
+                                                <button class="btn m-0" data-bs-toggle="modal" data-bs-target="#editexampleModal" id="editservice" serviceid="{{ $service->id }}">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                {{-- <div class="progress-wrapper w-75 mx-auto">
                                                     <div class="progress-info">
                                                         <div class="progress-percentage">
                                                             <span class="text-xs font-weight-bold">60%</span>
@@ -248,241 +253,18 @@
                                                             role="progressbar" aria-valuenow="60" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-atlassian.svg"
-                                                            class="avatar avatar-sm me-3" alt="atlassian">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">Add Progress Track</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="avatar-group mt-2">
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Romina Hadid">
-                                                        <img src="{{ asset('assets') }}/img/team-2.jpg" alt="team5">
-                                                    </a>
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Jessica Doe">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="team6">
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> $3,000 </span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <div class="progress-wrapper w-75 mx-auto">
-                                                    <div class="progress-info">
-                                                        <div class="progress-percentage">
-                                                            <span class="text-xs font-weight-bold">10%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-info w-10"
-                                                            role="progressbar" aria-valuenow="10" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-slack.svg"
-                                                            class="avatar avatar-sm me-3" alt="team7">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">Fix Platform Errors</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="avatar-group mt-2">
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Romina Hadid">
-                                                        <img src="{{ asset('assets') }}/img/team-3.jpg" alt="team8">
-                                                    </a>
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Jessica Doe">
-                                                        <img src="{{ asset('assets') }}/img/team-1.jpg" alt="team9">
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> Not set </span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <div class="progress-wrapper w-75 mx-auto">
-                                                    <div class="progress-info">
-                                                        <div class="progress-percentage">
-                                                            <span class="text-xs font-weight-bold">100%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-success w-100"
-                                                            role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-spotify.svg"
-                                                            class="avatar avatar-sm me-3" alt="spotify">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">Launch our Mobile App</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="avatar-group mt-2">
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Ryan Tompson">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="user1">
-                                                    </a>
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Romina Hadid">
-                                                        <img src="{{ asset('assets') }}/img/team-3.jpg" alt="user2">
-                                                    </a>
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Alexander Smith">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="user3">
-                                                    </a>
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Jessica Doe">
-                                                        <img src="{{ asset('assets') }}/img/team-1.jpg" alt="user4">
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> $20,500 </span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <div class="progress-wrapper w-75 mx-auto">
-                                                    <div class="progress-info">
-                                                        <div class="progress-percentage">
-                                                            <span class="text-xs font-weight-bold">100%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-success w-100"
-                                                            role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-jira.svg"
-                                                            class="avatar avatar-sm me-3" alt="jira">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">Add the New Pricing Page</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="avatar-group mt-2">
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Ryan Tompson">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="user5">
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> $500 </span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <div class="progress-wrapper w-75 mx-auto">
-                                                    <div class="progress-info">
-                                                        <div class="progress-percentage">
-                                                            <span class="text-xs font-weight-bold">25%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-info w-25"
-                                                            role="progressbar" aria-valuenow="25" aria-valuemin="0"
-                                                            aria-valuemax="25"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="{{ asset('assets') }}/img/small-logos/logo-invision.svg"
-                                                            class="avatar avatar-sm me-3" alt="invision">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">Redesign New Online Shop</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="avatar-group mt-2">
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Ryan Tompson">
-                                                        <img src="{{ asset('assets') }}/img/team-1.jpg" alt="user6">
-                                                    </a>
-                                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="Jessica Doe">
-                                                        <img src="{{ asset('assets') }}/img/team-4.jpg" alt="user7">
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold"> $2,000 </span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <div class="progress-wrapper w-75 mx-auto">
-                                                    <div class="progress-info">
-                                                        <div class="progress-percentage">
-                                                            <span class="text-xs font-weight-bold">40%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-info w-40"
-                                                            role="progressbar" aria-valuenow="40" aria-valuemin="0"
-                                                            aria-valuemax="40"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                       @endforeach
+                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                {{-- <div class="col-lg-4 col-md-6">
                     <div class="card h-100">
                         <div class="card-header pb-0">
                             <h6>Orders overview</h6>
@@ -559,14 +341,126 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <x-footers.auth></x-footers.auth>
         </div>
     </main>
     <x-plugins></x-plugins>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">New Service</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createService">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="servicename" class="col-form-label">Service name:</label>
+                            <input type="text" class="border-1 form-control px-3" name="servicename" id="servicename" placeholder="Name of the service" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="serviceprice" class="col-form-label">Price:</label>
+                            <input type="number" class="form-control border-1 px-3" id="serviceprice" name="serviceprice" placeholder="price in peso" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="servicestatus" class="col-form-label">Price:</label>
+                            <select name="servicestatus" id="servicestatus" class="form-select px-3" required>
+                                <option value="0" selected>Active</option>
+                                <option value="1">Inactive</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="createServicebtn">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editexampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">New Service</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateService">
+                        @csrf
+                        <input type="text" class="d-none" name="editserviceID" id="editserviceID">
+                        <div class="mb-3">
+                            <label for="servicename" class="col-form-label">Service name:</label>
+                            <input type="text" class="border-1 form-control px-3" name="editservicename" id="editservicename" placeholder="Name of the service" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="serviceprice" class="col-form-label">Price:</label>
+                            <input type="number" class="form-control border-1 px-3" id="editserviceprice" name="editserviceprice" placeholder="price in peso" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="servicestatus" class="col-form-label">Status:</label>
+                            <select name="editservicestatus" id="editservicestatus" class="form-select px-3" required>
+                                <option value="0">Active</option>
+                                <option value="1">Inactive</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updateServicebtn">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
     @push('js')
+    <script>
+        $('#createServicebtn').on('click', function(e) {
+            $.ajax({
+                method: 'post',
+                url: 'services/create',
+                data: $('#createService').serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    window.location.reload();
+                }
+            });
+        });
+
+        $(document).on('click','#editservice', function(e) {
+            var serviceID = $(this).attr('serviceid');
+            $('#editservicename').val('')
+            $('#editserviceprice').val('')
+            $('#editservicestatus').val('')
+            $.ajax({
+                method: 'get',
+                url: 'services/get/'+serviceID,
+                dataType: 'json',
+                success: function(response) {
+                    $('#editserviceID').val(response.id)
+                    $('#editservicename').val(response.servicename)
+                    $('#editserviceprice').val(response.serviceprice)
+                    $('#editservicestatus').val(response.servicestatus)
+                }
+            });
+        });
+
+        $('#updateServicebtn').on('click', function() {
+            $.ajax({
+                method: 'post',
+                url: 'services/update',
+                data: $('#updateService').serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    window.location.reload();
+                }
+            });
+        });
+    </script>
     <script src="{{ asset('assets') }}/js/plugins/chartjs.min.js"></script>
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");

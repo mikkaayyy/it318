@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -19,10 +20,11 @@ class ProfileController extends Controller
             'email' => 'required|email|unique:users,email,'.$user->id,
             'name' => 'required',
             'phone' => 'required|max:10',
-            'about' => 'required:max:150',
+            'about_me' => 'required:max:150',
             'location' => 'required'
         ]);
 
+        
         auth()->user()->update($attributes);
         return back()->withStatus('Profile successfully updated.');
     

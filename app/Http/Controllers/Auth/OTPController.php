@@ -24,11 +24,11 @@ class OTPController extends Controller
         $subject = "Your OTP Code";
         $otp = strval(random_int(100000, 999999));
 
-        $request->session()->put('otp', $otp);
+        session()->put('otp', $otp);
 
         Mail::to($request->email)->send(new OTPMail($request->email, $otp, $subject));
 
-        return response()->json(['message' => 'OTP sent successfully']);
+        return response()->json(['message' => 'success', 'otp' => $otp]);
     }
 
     public function verifyOTP(Request $request)

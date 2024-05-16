@@ -8,26 +8,27 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
 
 class OTPMail extends Mailable
 {
     use Queueable, SerializesModels;
      public $otp;
-     public $mail;
+     public $email;
      public $subject;
     /**
      * Create a new message instance.
      */
     public function __construct($email, $otp, $subject)
     {
-         $otp->otp=$otp;
-         $mail->mail=$mail;
-       $subject->subject=$subject;
+         $this->otp= $otp;
+         $this->email = $email;
+         $this->subject=$subject;
     }
 
     public function build()
     {
-        return $this->view('emails.otp')
+        return $this->view('name')
                     ->subject($this->subject)
                     ->with(['otp' => $this->otp, 'email' => $this->email]);
     }
@@ -38,7 +39,8 @@ class OTPMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'O T P Mail',
+            from: new Address('sample@gmail.com', 'Menchie'),
+            subject: 'Your OTP Code',
         );
     }
 
@@ -48,7 +50,7 @@ class OTPMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'name',
         );
     }
 

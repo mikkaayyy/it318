@@ -31,10 +31,10 @@
                                     <div class="card-body">
                                         <form id="signupForm">
                                         @csrf
-                                        <div class="input-group input-group-outline mb-3 ">
-                                                <label class="form-label">User Role</label>
-                                                <select class="form-select " name="role" required>
-                                                    <option value=""></option>
+                                            <div class="input-group input-group-outline mb-3 ">
+                                                {{-- <label class="form-label">User Role</label> --}}
+                                                <select class="form-select px-3" name="role" required>
+                                                    {{-- <option value="">--Select--</option> --}}
                                                     <option value="admin">Admin</option>
                                                     <option value="user" selected>Client</option>
                                                 </select>
@@ -49,7 +49,7 @@
                                             </div>
                                             <div class="input-group input-group-outline mb-3">
                                                 <label class="form-label">Email</label>
-                                                <input type="email" class="form-control" name="email" required>
+                                                <input type="email" class="form-control" id="email" name="email" required>
                                             </div>
                                             <div class="input-group input-group-outline mb-3">
                                                 <label class="form-label">Password</label>
@@ -72,7 +72,7 @@
                                                     <input type="text" class="form-control" name="otp" id="otp" required>
                                                 </div>
                                                 <div class="text-center mb-3">
-                                                    <button type="button" id="send-otp" class="btn btn-secondary">Send OTP</button>
+                                                    <button type="button" id="send-otp" class="btn btn-secondary" onclick="sendOTP()">Send OTP</button>
                                                 </div>
 
                                             <!-- <div class="form-check form-check-info text-start ps-0">
@@ -144,21 +144,18 @@ crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 <script >
-$(document).ready(function(){
-    sendOTP();
-});
+// $(document).ready(function(){
+//     sendOTP();
+// });
 
 function sendOTP(){
 
-    $("#btn-Otp").on("click", function(e){
-
-        e.preventDefault();
         $.ajax({
-            url: 'generate-otp',
+            url: 'send-otp',
             method: 'post',
             data: { 
-                email: $('#email').val(),
-                _token: $("#token").val()
+                'email': $('#email').val(),
+                '_token': '{{ csrf_token() }}'
             },
             dataType: 'json',
             cache: false,
@@ -171,6 +168,7 @@ function sendOTP(){
             success:function(data){
                 $("#btn-Otp").html("SEND OTP");
                 $("#btn-Otp").prop("disabled", false);
+                console.log(data.otp);
                 if (data.message == 'success') {
                     Swal.fire({
                         title: "Information",
@@ -190,6 +188,5 @@ function sendOTP(){
             }
         });
 
-    });
 }
 </script>

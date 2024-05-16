@@ -29,12 +29,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\login;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\NotificationController;
 use App\Models\Appointment;
 use App\Http\Controllers\Auth\OTPController;
 
@@ -59,13 +61,15 @@ Route::post('clients', function () {
     return view('pages.laravel-examples.clients');
 })->name('clients.post'); 
 
-Route::get('/appointments', [AppointmentController::class, 'index'])->middleware('auth')->name('appointments.index');
+Route::get('/appointments', [AppointmentController::class, 'index'])->middleware('auth')->name('appointments');
 Route::get('/appointments/admin', [AppointmentController::class, 'admin'])->middleware('auth')->name('appointments.admin');
-// Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
 Route::post('appointments/create', [AppointmentController::class, 'store'])->middleware('auth')->name('appointments-store');
 Route::post('/approve_appointment/{appointmentId}', [AppointmentController::class, 'approve_appointment']);
 Route::post('/reject_appointment/{appointmentId}', [AppointmentController::class, 'reject_appointment']);
 Route::post('appointments/approve',[AppointmentController::class, ]);
+Route::get('/appointments/get/{appointmentId}', [AppointmentController::class, 'getAppointment'])->name('appointments.get');
+Route::post('/appointments/update', [AppointmentController::class, 'updateAppointment'])->name('appointments.get');
+Route::post('/appointments/delete/{appointmentId}', [AppointmentController::class, 'deleteAppointment'])->name('appointments.get');
 
 Route::post('/send-otp', [OTPController::class, 'generateOTP']);
 Route::post('/verify-otp', [OTPController::class, 'verifyOTP']);
@@ -75,6 +79,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
+Route::get('/admin/dashboard', [DashboardController::class, 'adminindex'])->middleware('auth')->name('admindashboard');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::get('sign-up', [RegisterController::class, 'create'])->middleware('guest')->name('sign-up');
 Route::post('store-sign-up', [RegisterController::class, 'store'])->middleware('guest')->name('register');
@@ -103,3 +108,14 @@ Route::get('static-sign-in', function () { return view('pages.static-sign-in');}
 Route::get('static-sign-up', function () { return view('pages.static-sign-up');})->name('static-sign-up');
 Route::get('user-profile', function () { return view('pages.laravel-examples.user-profile');})->name('user-profile');
 });
+
+
+
+Route::post('admin/services/create', [ServiceController::class, 'create'])->middleware('auth');
+Route::get('admin/services/get/{serviceID}', [ServiceController::class, 'getService'])->middleware('auth');
+Route::post('admin/services/update', [ServiceController::class, 'updateService'])->middleware('auth');
+
+
+Route::get('notification/get', [NotificationController::class, 'getAll'])->middleware('auth');
+Route::get('notification/getunread', [NotificationController::class, 'getUnRead'])->middleware('auth');
+Route::get('notification/readall', [NotificationController::class, 'readAll'])->middleware('auth');
