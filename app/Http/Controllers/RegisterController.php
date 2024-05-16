@@ -35,7 +35,7 @@ class RegisterController extends Controller
         $sessionOTP = session('otp');
 
         if ($inputOTP != $sessionOTP) {
-            return response()->json(['error' => 'Invalid OTP']);
+            return response()->json(['msg' => 'Invalid OTP']);
         }
 
         $user = User::create([
