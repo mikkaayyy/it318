@@ -67,7 +67,8 @@
                                     </span>
                                         <a class="btn btn-danger reject-btn" data-appointment-id="{{ $appointment->appointmentID }}" href="#">Reject</a>
                             @php
-                                    }
+                                }
+                                    
                             @endphp
                         </td>
                     </tr>
