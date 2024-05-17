@@ -1,17 +1,17 @@
 <x-layout bodyClass="">
-    <div>
-        <div class="container position-sticky z-index-sticky top-0">
+    <!-- <div> -->
+        <!-- <div class="container position-sticky z-index-sticky top-0">
             <div class="row">
-                <div class="col-15">
+                <div class="col-15"> -->
                     <!-- Navbar -->
-                    <x-navbars.navs.guest signin='static-sign-in' signup='static-sign-up'></x-navbars.navs.guest>
+                    <!-- <x-navbars.navs.guest signin='static-sign-in' signup='static-sign-up'></x-navbars.navs.guest> 
                     <!-- End Navbar -->
                 </div>
             </div>
         </div>
         <main class="main-content  mt-0">
             <section>
-                <div class="page-header min-vh-150">
+            <div class="page-header align-items-center min-vh-100 pt-5 pb-25 m-0 border-radius-lg" style="background-image: url('../assets/img/Salon-min.png');">
                     <div class="container">
                         <div class="row">
                             <div
@@ -21,11 +21,11 @@
                                 </div>
                             </div>
                             <div
-                                class="col-xl-5 col-lg-2 col-md-10 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-50">
-                                <div class="card card-plain">
+                             class="col-xl-5 col-lg-2 col-md-10 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-50 pb-4">
+                                <div class="card bg-light text-white z-index-0 fadeIn3 fadeInBottom">
                                 <div class="container">
-                                    <div class="card-header">
-                                        <h4 class="font-weight-bolder">Sign Up</h4>
+                                    <!-- <div class="card-header"> -->
+                                    <h3 class="font-weight-bolder text-center">Sign Up</h3>
                                         <p class="mb-0"></p>
                                     </div>
                                     <div class="card-body">
@@ -90,16 +90,17 @@
                                                     Up</button>
                                             </div>
                                         </form>
-                                    </div>
-                                    <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                                        <p class="mb-2 text-sm mx-auto">
+                                        <div class="card-footer text-center pt-0 px-lg-0 px-1">
+                                    <p class="mt-4 text-sm text-center text-dark">
                                             Already have an account?
                                             <a href="{{ route('static-sign-in') }}"
                                                 class="text-primary text-gradient font-weight-bold">Sign in</a>
                                         </p>
                                     </div>
+                                    </div>
+                                    
                                 </div>
-                            </div>
+                            </>
                         </div>
                     </div>
                 </div>

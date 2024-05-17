@@ -1,18 +1,18 @@
 <x-layout bodyClass="bg-gray-100">
-    <div class="container position-sticky z-index-sticky ">
+    <!-- <div class="container position-sticky z-index-sticky ">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12"> -->
                 <!-- Navbar -->
-                <x-navbars.navs.guest signin='static-sign-in' signup='static-sign-up'></x-navbars.navs.guest>
+                <!-- <x-navbars.navs.guest signin='static-sign-in' signup='static-sign-up'></x-navbars.navs.guest> 
                 <!-- End Navbar -->
             </div>
         </div>
     </div>
     <main class="main-content  mt-0">
-       
-        <div class="page-header align-items-start min-vh-100"
+    <div class="page-header align-items-center min-vh-100 pt-5 pb-25 m-0 border-radius-lg" style="background-image: url('../assets/img/Salon-min.png');">
+        <!-- <div class="page-header align-items-start min-vh-100"
         style="background-image: url('https://salonpovera.com/hair-salon-blog/hair-salon-services-what-are-the-options//hair-salon-background.jpg'); background-size: cover;">
-            <span class="mask bg-gradient-dark opacity-5"></span>
+            <span class="mask bg-gradient-dark opacity-5"></span> -->
             <div class="container my-auto"> 
                 <div class="row">
                     <div class="col-lg-4 col-md-8 col-12 mx-auto">
