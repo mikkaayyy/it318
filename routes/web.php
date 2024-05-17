@@ -117,6 +117,9 @@ Route::get('admin/services/get/{serviceID}', [ServiceController::class, 'getServ
 Route::post('admin/services/update', [ServiceController::class, 'updateService'])->middleware('auth');
 
 
+Route::get('admin/notification/get', [NotificationController::class, 'getAll'])->middleware('auth');
 Route::get('notification/get', [NotificationController::class, 'getAll'])->middleware('auth');
+Route::get('admin/notification/getunread', [NotificationController::class, 'getUnRead'])->middleware('auth');
 Route::get('notification/getunread', [NotificationController::class, 'getUnRead'])->middleware('auth');
+Route::get('admin/notification/readall', [NotificationController::class, 'readAll'])->middleware('auth');
 Route::get('notification/readall', [NotificationController::class, 'readAll'])->middleware('auth');

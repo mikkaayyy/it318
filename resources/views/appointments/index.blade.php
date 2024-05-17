@@ -32,7 +32,7 @@
                         <td>{{ $appointment->servicename }}</td>
                         <td>PHP {{ number_format($appointment->serviceprice,2) }}</td> 
                         <!-- <td>{{ $appointment->status}}</td> -->
-                        <td>{{ $appointment->status == 1 ? 'Approved' : ($appointment->status == 2 ? 'Rejected' : ($appointment->status == 3 ? 'Walk-in' : 'Pending'))}}</td>
+                        <td>{{ $appointment->status == 1 ? 'Approved' : ($appointment->status == 2 ? 'Rejected' : ($appointment->status == 3 ? 'Walk-in' : ($appointment->status == 4 ? 'Paid' : 'Pending') ))}}</td>
                          <td>
                             <?php
                                 if($appointment->status > 0 || $appointment->status < 0){

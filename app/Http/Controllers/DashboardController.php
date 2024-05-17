@@ -21,12 +21,12 @@ class DashboardController extends Controller
         ->get();
         $dailySpent = Appointment::leftJoin('services as s', 's.id', '=', 'appointments.service')
                                     ->where(DB::raw('DATE(appointments.schedule)'), '=', $currentDate)
-                                    ->wherein('appointments.status', 4)
+                                    ->where('appointments.status', 4)
                                     ->where('appointments.userId', auth()->id())
                                     ->sum('s.serviceprice');
         $overAllSpent = Appointment::leftJoin('services as s', 's.id', '=', 'appointments.service')
                                     ->where(DB::raw('DATE(appointments.schedule)'), '<=', $currentDate)
-                                    ->wherein('appointments.status', 4)
+                                    ->where('appointments.status', 4)
                                     ->where('appointments.userId', auth()->id())
                                     ->sum('s.serviceprice');
 
