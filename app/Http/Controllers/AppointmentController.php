@@ -74,7 +74,7 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         $validatedData = request()->validate([
-            'schedule' => 'required|date_format:Y-m-d\TH:i',
+            'schedule' => 'required',
             'service' => 'required|int',
             'price' => 'required|int',
             'status'=> 'int'
