@@ -119,7 +119,15 @@ Route::post('admin/services/update', [ServiceController::class, 'updateService']
 
 Route::get('admin/notification/get', [NotificationController::class, 'getAll'])->middleware('auth');
 Route::get('notification/get', [NotificationController::class, 'getAll'])->middleware('auth');
-Route::get('admin/notification/getunread', [NotificationController::class, 'getUnRead'])->middleware('auth');
+// Route::get('admin/notification/getunread', [NotificationController::class, 'getUnRead'])->middleware('auth');
 Route::get('notification/getunread', [NotificationController::class, 'getUnRead'])->middleware('auth');
 Route::get('admin/notification/readall', [NotificationController::class, 'readAll'])->middleware('auth');
 Route::get('notification/readall', [NotificationController::class, 'readAll'])->middleware('auth');
+
+
+Route::post('admin/user/post/{userid}', [UserController::class, 'deleteUser'])->middleware('auth');
+Route::post('user/delete/{userid}', [UserController::class, 'deleteUser'])->middleware('auth');
+Route::get('admin/user/get/{userid}', [UserController::class, 'getUser'])->middleware('auth');
+Route::get('user/get/{userid}', [UserController::class, 'getUser'])->middleware('auth');
+Route::post('admin/user/update', [UserController::class, 'updateUser'])->middleware('auth');
+Route::post('user/update', [UserController::class, 'updateUser'])->middleware('auth');

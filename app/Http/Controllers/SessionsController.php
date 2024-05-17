@@ -53,7 +53,7 @@ class SessionsController extends Controller
         // session()->regenerate();
 
         // return redirect('/dashboard'); 
-        return response()->json(['status_code' => 0]);
+        return response()->json(['status_code' => 0, 'role' => auth()->user()->role]);
     }
 
     public function show(){

@@ -79,7 +79,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="schedule" class="col-form-label">Date:</label>
-                            <input type="datetime-local" class="form-control px-3" id="schedule" name="schedule">
+                            <input type="datetime-local" class="form-control px-3" id="schedule" name="schedule" min="{{ \Carbon\Carbon::now() }}">
                         </div>
                     </form>
                 </div>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="schedule" class="col-form-label">Date:</label>
-                            <input type="datetime-local" class="form-control px-3" id="editschedule" name="editschedule">
+                            <input type="datetime-local" class="form-control px-3" id="editschedule" name="editschedule"  min="{{ \Carbon\Carbon::now() }}">
                         </div>
                     </form>
                 </div>

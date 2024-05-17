@@ -97,7 +97,6 @@
             url: 'notification/get',
             dataType: 'json',
             success: function(response) {
-                console.log(response)
                 if(response){
                     response.forEach(element => {
                         $('#notificationList').append(`

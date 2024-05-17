@@ -90,7 +90,12 @@ crossorigin="anonymous"></script>
             dataType: 'json',
             success: function(response) {
                 if (response.status_code == 0) {
-                    window.location.href = "{{route('dashboard')}}";
+                    if( response.role == 'user' ){
+                        window.location.href = "{{route('dashboard')}}";
+                    }else{
+
+                        window.location.href = "{{route('admindashboard')}}";
+                    }
                 } else {
                     $('#error').html('<div>' + response.msg + '</div>');
                 }
