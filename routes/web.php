@@ -66,6 +66,7 @@ Route::get('/appointments/admin', [AppointmentController::class, 'admin'])->midd
 Route::post('appointments/create', [AppointmentController::class, 'store'])->middleware('auth')->name('appointments-store');
 Route::post('/approve_appointment/{appointmentId}', [AppointmentController::class, 'approve_appointment']);
 Route::post('/reject_appointment/{appointmentId}', [AppointmentController::class, 'reject_appointment']);
+Route::post('/paid_appointment/{appointmentId}', [AppointmentController::class, 'paid_appointment']);
 Route::post('appointments/approve',[AppointmentController::class, ]);
 Route::get('/appointments/get/{appointmentId}', [AppointmentController::class, 'getAppointment'])->name('appointments.get');
 Route::post('/appointments/update', [AppointmentController::class, 'updateAppointment'])->name('appointments.get');

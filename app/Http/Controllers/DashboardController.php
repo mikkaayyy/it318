@@ -21,12 +21,12 @@ class DashboardController extends Controller
         ->get();
         $dailySpent = Appointment::leftJoin('services as s', 's.id', '=', 'appointments.service')
                                     ->where(DB::raw('DATE(appointments.schedule)'), '=', $currentDate)
-                                    ->where('appointments.status', 1)
+                                    ->wherein('appointments.status', 4)
                                     ->where('appointments.userId', auth()->id())
                                     ->sum('s.serviceprice');
         $overAllSpent = Appointment::leftJoin('services as s', 's.id', '=', 'appointments.service')
                                     ->where(DB::raw('DATE(appointments.schedule)'), '<=', $currentDate)
-                                    ->where('appointments.status', 1)
+                                    ->wherein('appointments.status', 4)
                                     ->where('appointments.userId', auth()->id())
                                     ->sum('s.serviceprice');
 
@@ -38,11 +38,11 @@ class DashboardController extends Controller
         $services = Services::all();
         $dailyRevenue = Appointment::leftJoin('services as s', 's.id', '=', 'appointments.service')
                                     ->where(DB::raw('DATE(appointments.schedule)'), '=', $currentDate)
-                                    ->whereIn('appointments.status', [1, 3])
+                                    ->whereIn('appointments.status', [4, 3])
                                     ->sum('s.serviceprice');
         $overAllRevenue = Appointment::leftJoin('services as s', 's.id', '=', 'appointments.service')
                                     ->where(DB::raw('DATE(appointments.schedule)'), '<=', $currentDate)
-                                    ->whereIn('appointments.status', [1, 3])
+                                    ->whereIn('appointments.status', [4, 3])
                                     ->sum('s.serviceprice');
         $totalUser = User::where('role','=','user')->count();
         return view('dashboard.index', compact('services','dailyRevenue', 'overAllRevenue', 'totalUser'));

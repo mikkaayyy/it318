@@ -105,7 +105,7 @@ class AppointmentController extends Controller
             'notifcationFrom' => auth()->id(),
             'notifcationTo' => $appointment->userId,
             'notifcationSubject' => 'Appointment Approved',
-            'notifcationBody' => 'You appointment '. $appointment->servicename .' on ' .Carbon::parse($appointment->schedule)->format('F d Y h:ia'). ' has been approved',
+            'notifcationBody' => 'Your appointment '. $appointment->servicename .' on ' .Carbon::parse($appointment->schedule)->format('F d Y h:ia'). ' has been approved',
             'notificationStatus' => 0,
         ];
 
@@ -133,7 +133,7 @@ class AppointmentController extends Controller
             'notifcationFrom' => auth()->id(),
             'notifcationTo' => $appointment->userId,
             'notifcationSubject' => 'Appointment Rejected',
-            'notifcationBody' => 'You appointment '. $appointment->servicename .' on ' .Carbon::parse($appointment->schedule)->format('F d Y h:ia'). ' has been rejected',
+            'notifcationBody' => 'Your appointment '. $appointment->servicename .' on ' .Carbon::parse($appointment->schedule)->format('F d Y h:ia'). ' has been rejected',
             'notificationStatus' => 0,
         ];
         if ($appointmentUpdate) {
@@ -142,6 +142,31 @@ class AppointmentController extends Controller
 
             Notification::create($notificationData);
             return response()->json(['success' => true, 'message' => 'Appointment rejected successfully']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Appointment not found'], 404);
+        }
+    }
+
+    public function paid_appointment($appointmentId)
+    {
+        $appointmentId = intval($appointmentId);
+        $appointment = Appointment::leftJoin('services as s','s.id', '=', 'appointments.service')->find($appointmentId);
+        $appointmentUpdate = Appointment::find($appointmentId);
+        // $appointment = Appointment::where('userId', $appointment->userId)->first();
+
+        $notificationData = [
+            'notifcationFrom' => auth()->id(),
+            'notifcationTo' => $appointment->userId,
+            'notifcationSubject' => 'Appointment PAID',
+            'notifcationBody' => 'Your appointment '. $appointment->servicename .' on ' .Carbon::parse($appointment->schedule)->format('F d Y h:ia'). ' has been PAID!',
+            'notificationStatus' => 0,
+        ];
+        if ($appointmentUpdate) {
+            $appointmentUpdate->status = 4;
+            $appointmentUpdate->save();
+
+            Notification::create($notificationData);
+            return response()->json(['success' => true, 'message' => 'Appointment PAID successfully']);
         } else {
             return response()->json(['success' => false, 'message' => 'Appointment not found'], 404);
         }

@@ -55,20 +55,22 @@
                         <td>{{ $appointment->servicename }}</td>
                         <td>PHP {{ number_format($appointment->serviceprice,2) }}</td> 
                         <!-- <td>{{ $appointment->status}}</td> -->
-                        <td>{{ $appointment->status == 1 ? 'Approved' : ($appointment->status == 2 ? 'Rejected' : ($appointment->status == 3 ? 'Walk-in' : 'Pending'))}}</td>
-                         <td>
+                        <td>{{ $appointment->status == 1 ? 'Approved' : ($appointment->status == 2 ? 'Rejected' : ($appointment->status == 3 ? 'Walk-in' :($appointment->status == 4 ? 'Paid' : 'Pending') ))}}</td>
+                        <td align="center">
                             <?php
-                                if($appointment->status > 0 || $appointment->status < 0){
+                                if($appointment->status > 1 || $appointment->status < 0){
                                     echo 'No action available';
+                                }elseif($appointment->status == 1){
+                            ?>
+                                <a class="btn btn-danger paid-btn" data-appointment-id="{{ $appointment->appointmentID }}" href="#">Paid</a>
+                            <?php
                                 }else{
                             ?>
-                                    <span style="padding-bottom: 10px;">
-                                        <button class="btn btn-success approve-btn" data-appointment-id="{{ $appointment->appointmentID }}">Approve</button>
-                                    </span>
-                                        <a class="btn btn-danger reject-btn" data-appointment-id="{{ $appointment->appointmentID }}" href="#">Reject</a>
-                            @php
-                                    }
-                            @endphp
+                                <span style="padding-bottom: 10px;">
+                                    <button class="btn btn-success approve-btn" data-appointment-id="{{ $appointment->appointmentID }}">Approve</button>
+                                </span>
+                                    <a class="btn btn-danger reject-btn" data-appointment-id="{{ $appointment->appointmentID }}" href="#">Reject</a>
+                            <?php } ?>
                         </td>
                     </tr>
                 @endforeach
@@ -108,7 +110,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="reqApp">Request</button>
+                    <button type="button" class="btn btn-primary" id="reqApp">Add</button>
                 </div>
             </div>
         </div>
@@ -254,6 +256,52 @@ $(document).on('click', '.reject-btn', function() {
                     Swal.fire({
                         title: 'Rejected!',
                         text: 'The appointment has been successfully rejected.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Reload the page or update UI as needed
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+    });
+});
+
+
+$(document).on('click', '.paid-btn', function() {
+    var appointmentId = $(this).data('appointment-id');
+    
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you really want to mark this appointment PAID?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, PAID it!',
+        cancelButtonText: 'No',
+        customClass: {
+            confirmButton: 'custom-confirm-btn btn btn-danger',
+            cancelButton: 'custom-cancel-btn btn btn-secondary'
+        },
+        buttonsStyling: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                method: 'POST',
+                url: '/paid_appointment/' + appointmentId,
+                dataType: 'json',
+                success: function(response) {
+                    // Show success message with SweetAlert
+                    Swal.fire({
+                        title: 'PAID!',
+                        text: 'The appointment has been successfully PAID.',
                         icon: 'success',
                         confirmButtonText: 'OK',
                         confirmButtonClass: 'btn btn-success',
